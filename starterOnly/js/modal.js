@@ -4,6 +4,7 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const burgerBtn = document.getElementById('burger-btn');
 const closeBtn = document.getElementById('close-btn');
+var topNav = document.getElementById("myTopnav");
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -15,11 +16,10 @@ function launchModal() {
 
 // Affichage et désaffichage du menu mobile au click
 burgerBtn.addEventListener('click', () => {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
+  if (topNav.className === "topnav") {
+    topNav.className += " responsive";
   } else {
-    x.className = "topnav";
+    topNav.className = "topnav";
   }
 })
 
