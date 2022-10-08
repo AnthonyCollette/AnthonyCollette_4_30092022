@@ -14,20 +14,87 @@ const birthdate = document.getElementById('birthdate')
 const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 const actualYear = new Date().getFullYear()
 const form = document.getElementById('form')
+const errorFirst = document.getElementById('error-first')
+const errorLast = document.getElementById('error-last')
+const errorEmail = document.getElementById('error-email')
+const errorLocation = document.getElementById('error-location')
+const errorBirthdate1 = document.getElementById('error-birthdate-1')
+const errorBirthdate2 = document.getElementById('error-birthdate-2')
+const errorCheckbox = document.getElementById('error-checkbox')
+const errorQuantity = document.getElementById('error-quantity')
+const location1Input = document.getElementById('location1-input')
+const location2Input = document.getElementById('location2-input')
+const location3Input = document.getElementById('location3-input')
+const location4Input = document.getElementById('location4-input')
+const location5Input = document.getElementById('location5-input')
+const location6Input = document.getElementById('location6-input')
 
 submitBtn.addEventListener('click', (e) => {
 	e.preventDefault()
-	// let year = new Date(birthdate.value).getFullYear()
-	// let age =
+	// Reset des styles
+	if (first.getAttribute('style', 'border: 2px solid red')) {
+		first.removeAttribute('style', 'border')
+		errorFirst.removeAttribute('style', 'display')
+	}
+	if (last.getAttribute('style', 'border: 2px solid red')) {
+		last.removeAttribute('style', 'border')
+		errorLast.removeAttribute('style', 'display')
+	}
+	if (email.getAttribute('style', 'border: 2px solid red')) {
+		email.removeAttribute('style', 'border')
+		errorEmail.removeAttribute('style', 'display')
+	}
+	if (birthdate.getAttribute('style', 'border: 2px solid red')) {
+		birthdate.removeAttribute('style', 'border')
+		errorBirthdate1.removeAttribute('style', 'display')
+		errorBirthdate2.removeAttribute('style', 'display')
+	}
+	if (quantity.getAttribute('style', 'border: 2px solid red')) {
+		quantity.removeAttribute('style', 'border')
+		errorQuantity.removeAttribute('style', 'display')
+	}
+	if (location1Input.getAttribute('style', 'border: 2px solid red')) {
+		location1Input.removeAttribute('style', 'border')
+		location2Input.removeAttribute('style', 'border')
+		location3Input.removeAttribute('style', 'border')
+		location4Input.removeAttribute('style', 'border')
+		location5Input.removeAttribute('style', 'border')
+		location6Input.removeAttribute('style', 'border')
+		errorLocation.removeAttribute('style', 'display')
+	}
+	if (checkbox.getAttribute('style', 'border: 2px solid red')) {
+		checkbox.removeAttribute('style', 'border')
+		errorCheckbox.removeAttribute('style', 'display')
+	}
+
 	// Vérification des données
-	if (first.value.length < 3 || first.value === '') {
-		alert('Merci de renseigner votre prénom')
-	} else if (last.value.length < 3 || last.value === '') {
-		alert('Merci de renseigner votre nom')
+	if (first.value.length < 2 || first.value === '') {
+		first.setAttribute('style', 'border: 2px solid red')
+		errorFirst.setAttribute('style', 'display: block')
+	} else if (last.value.length < 2 || last.value === '') {
+		last.setAttribute('style', 'border: 2px solid red')
+		errorLast.setAttribute('style', 'display: block')
 	} else if (email.value === '' || !regex.test(email.value)) {
-		alert('Merci de renseigner votre adresse mail')
+		email.setAttribute('style', 'border: 2px solid red')
+		errorEmail.setAttribute('style', 'display: block')
+	} else if (
+		actualYear - new Date(birthdate.value).getFullYear() < 18 ||
+		isNaN(new Date(birthdate.value).getFullYear())
+	) {
+		if ((errorBirthdate2.style.display = 'block')) {
+			errorBirthdate2.style.display = 'none'
+		}
+		birthdate.setAttribute('style', 'border: 2px solid red')
+		errorBirthdate1.setAttribute('style', 'display: block')
+	} else if (actualYear - new Date(birthdate.value).getFullYear() > 122) {
+		if ((errorBirthdate1.style.display = 'block')) {
+			errorBirthdate1.style.display = 'none'
+		}
+		birthdate.setAttribute('style', 'border: 2px solid red')
+		errorBirthdate2.setAttribute('style', 'display: block')
 	} else if (isNaN(quantity.value) || quantity.value === '') {
-		alert('Merci de renseigner un chiffre')
+		quantity.setAttribute('style', 'border: 2px solid red')
+		errorQuantity.setAttribute('style', 'display: block')
 	} else if (
 		!location1.checked &&
 		!location2.checked &&
@@ -36,13 +103,16 @@ submitBtn.addEventListener('click', (e) => {
 		!location5.checked &&
 		!location6.checked
 	) {
-		alert('Merci de séléctionner une destination')
+		location1Input.setAttribute('style', 'border: 2px solid red')
+		location2Input.setAttribute('style', 'border: 2px solid red')
+		location3Input.setAttribute('style', 'border: 2px solid red')
+		location4Input.setAttribute('style', 'border: 2px solid red')
+		location5Input.setAttribute('style', 'border: 2px solid red')
+		location6Input.setAttribute('style', 'border: 2px solid red')
+		errorLocation.setAttribute('style', 'display: block')
 	} else if (!checkbox.checked) {
-		alert("Merci d'accepeter les conditions d'utilisation")
-	} else if (actualYear - new Date(birthdate.value).getFullYear() < 18) {
-		alert("Vous n'avez pas l'âge requis")
-	} else if (actualYear - new Date(birthdate.value).getFullYear() > 122) {
-		alert('Il semblerait que vous soyez la personne la plus âgée sur Terre !')
+		checkbox.setAttribute('style', 'border: 2px solid red')
+		errorCheckbox.setAttribute('style', 'display: block')
 	} else {
 		alert('Merci ! Votre réservation a été reçue.')
 		form.reset()

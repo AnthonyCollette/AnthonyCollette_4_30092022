@@ -481,6 +481,23 @@ input[data-error]::after {
 .hero-section > .btn-signup {
 	display: none;
 }
+
+.error {
+	font-size: 12px;
+	color: red;
+	line-height: 18px;
+	display: block;
+}
+#error-first,
+#error-last,
+#error-email,
+#error-location,
+#error-birthdate-1,
+#error-birthdate-2,
+#error-checkbox,
+#error-quantity {
+	display: none;
+}
 footer {
 	padding-left: 2vw;
 	padding-right: 2vw;
