@@ -28,6 +28,7 @@ const location3Input = document.getElementById('location3-input')
 const location4Input = document.getElementById('location4-input')
 const location5Input = document.getElementById('location5-input')
 const location6Input = document.getElementById('location6-input')
+const modal = document.getElementById('overlay-modal')
 
 submitBtn.addEventListener('click', (e) => {
 	e.preventDefault()
@@ -114,7 +115,8 @@ submitBtn.addEventListener('click', (e) => {
 		checkbox.setAttribute('style', 'border: 2px solid red')
 		errorCheckbox.setAttribute('style', 'display: block')
 	} else {
-		alert('Merci ! Votre réservation a été reçue.')
+		modal.setAttribute('style', 'display: flex')
+		console.log(first.value)
 		form.reset()
 	}
 })
