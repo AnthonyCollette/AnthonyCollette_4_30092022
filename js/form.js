@@ -29,6 +29,7 @@ const location4Input = document.getElementById('location4-input')
 const location5Input = document.getElementById('location5-input')
 const location6Input = document.getElementById('location6-input')
 const modal = document.getElementById('overlay-modal')
+const h2Modal = document.getElementById('h2-modal')
 
 submitBtn.addEventListener('click', (e) => {
 	e.preventDefault()
@@ -115,8 +116,19 @@ submitBtn.addEventListener('click', (e) => {
 		checkbox.setAttribute('style', 'border: 2px solid red')
 		errorCheckbox.setAttribute('style', 'display: block')
 	} else {
+		// localStorage.setItem('firstname', first.value)
+		const firstName = first.value
+		const locations = [
+			location1,
+			location2,
+			location3,
+			location4,
+			location5,
+			location6,
+		]
+		const locationSelected = locations.filter((location) => location.checked)
+		h2Modal.innerHTML += `Merci ${firstName} de vous être enregitré(e) ! <br /> Nous vous retrouverons bientôt à ${locationSelected[0].value} !`
 		modal.setAttribute('style', 'display: flex')
-		console.log(first.value)
 		form.reset()
 	}
 })
