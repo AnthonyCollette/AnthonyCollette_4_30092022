@@ -520,6 +520,7 @@ input[data-error]::after {
 	justify-content: center;
 	padding: 50px 100px;
 	position: relative;
+	max-width: 70%;
 }
 .modal svg:nth-child(1) {
 	width: 15px;
@@ -589,6 +590,20 @@ footer {
 	.copyrights {
 		margin-top: 50px;
 		text-align: center;
+	}
+}
+
+@media screen and (max-width: 976px) {
+	.modal {
+		position: relative;
+		padding: 50px;
+	}
+	.modal h2 {
+		font-size: 20px;
+	}
+	.modal svg:nth-child(2) {
+		width: 68px;
+		border: 7px solid green;
 	}
 }
 

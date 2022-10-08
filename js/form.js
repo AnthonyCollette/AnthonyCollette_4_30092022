@@ -30,6 +30,7 @@ const location5Input = document.getElementById('location5-input')
 const location6Input = document.getElementById('location6-input')
 const modal = document.getElementById('overlay-modal')
 const h2Modal = document.getElementById('h2-modal')
+const formParent = document.getElementById('bground')
 
 submitBtn.addEventListener('click', (e) => {
 	e.preventDefault()
@@ -127,8 +128,8 @@ submitBtn.addEventListener('click', (e) => {
 			location6,
 		]
 		const locationSelected = locations.filter((location) => location.checked)
-		h2Modal.innerHTML += `Merci ${firstName} de vous être enregitré(e) ! <br /> Nous vous retrouverons bientôt à ${locationSelected[0].value} !`
+		h2Modal.innerHTML = `Merci ${firstName} de vous être enregitré⸱e ! <br /> Nous vous retrouverons bientôt à ${locationSelected[0].value} !`
 		modal.setAttribute('style', 'display: flex')
-		form.reset()
+		formParent.setAttribute('style', 'display: none')
 	}
 })

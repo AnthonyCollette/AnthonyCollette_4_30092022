@@ -31,4 +31,5 @@ closeBtn.addEventListener('click', () => (modalbg.style.display = 'none'))
 // Fermeture du modal de confirmation d'inscription
 cross.addEventListener('click', () => {
 	overlayModal.setAttribute('style', 'display: none')
+	form.reset()
 })
