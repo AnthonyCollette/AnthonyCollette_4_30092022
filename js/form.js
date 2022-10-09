@@ -127,8 +127,18 @@ submitBtn.addEventListener('click', (e) => {
 			location5,
 			location6,
 		]
+
+		// Création du formulaire à envoyer
+		const formSend = new FormData()
+		// Récupération de la ville sélectionnée
 		const locationSelected = locations.filter((location) => location.checked)
-		h2Modal.innerHTML = `Merci ${firstName} de vous être enregitré⸱e ! <br /> Nous vous retrouverons bientôt à ${locationSelected[0].value} !`
+		// Ajout des valeurs souhaitées au formulaire
+		formSend.append('first', firstName)
+		formSend.append('location', locationSelected[0].value)
+		const displayFirst = formSend.get('first')
+		const displayCity = formSend.get('location')
+		// Affichage des informations dynamiques
+		h2Modal.innerHTML = `Merci ${displayFirst} de vous être enregitré⸱e ! <br /> Nous vous retrouverons bientôt à ${displayCity} !`
 		modal.setAttribute('style', 'display: flex')
 		formParent.setAttribute('style', 'display: none')
 	}
