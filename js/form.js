@@ -1,3 +1,4 @@
+// Récupération des éléments du DOM
 const submitBtn = document.getElementById('btn-submit')
 const first = document.getElementById('first')
 const last = document.getElementById('last')
@@ -31,7 +32,17 @@ const location6Input = document.getElementById('location6-input')
 const modal = document.getElementById('overlay-modal')
 const h2Modal = document.getElementById('h2-modal')
 const formParent = document.getElementById('bground')
+const burgerBtn = document.getElementById('burger-btn')
 
+// Enlever le lien du burger button
+burgerBtn.addEventListener('click', (e) => e.preventDefault())
+
+// Lancement de la fonction validate() au submit du formulaire
+form.addEventListener('submit', () => {
+	return validate()
+})
+
+// Lancement de la fonction au clic du bouton d'envoi du formulaire
 submitBtn.addEventListener('click', (e) => {
 	e.preventDefault()
 	// Reset des styles
@@ -71,16 +82,24 @@ submitBtn.addEventListener('click', (e) => {
 	}
 
 	// Vérification des données
+
+	// Vérification que le prénom fasse au moins 2 caractères
 	if (first.value.length < 2 || first.value === '') {
 		first.setAttribute('style', 'border: 2px solid red')
 		errorFirst.setAttribute('style', 'display: block')
-	} else if (last.value.length < 2 || last.value === '') {
+	}
+	// Vérification que le nom fasse au moins 2 caractères
+	else if (last.value.length < 2 || last.value === '') {
 		last.setAttribute('style', 'border: 2px solid red')
 		errorLast.setAttribute('style', 'display: block')
-	} else if (email.value === '' || !regex.test(email.value)) {
+	}
+	// Vérification du format de l'adresse mail
+	else if (email.value === '' || !regex.test(email.value)) {
 		email.setAttribute('style', 'border: 2px solid red')
 		errorEmail.setAttribute('style', 'display: block')
-	} else if (
+	}
+	// Vérification de l'âge de l'utilisateur
+	else if (
 		actualYear - new Date(birthdate.value).getFullYear() < 18 ||
 		isNaN(new Date(birthdate.value).getFullYear())
 	) {
@@ -95,10 +114,14 @@ submitBtn.addEventListener('click', (e) => {
 		}
 		birthdate.setAttribute('style', 'border: 2px solid red')
 		errorBirthdate2.setAttribute('style', 'display: block')
-	} else if (isNaN(quantity.value) || quantity.value === '') {
+	}
+	// Vérification du format de la quantité envoyée
+	else if (isNaN(quantity.value) || quantity.value === '') {
 		quantity.setAttribute('style', 'border: 2px solid red')
 		errorQuantity.setAttribute('style', 'display: block')
-	} else if (
+	}
+	// Vérification qu'une ville soit sélectionnée
+	else if (
 		!location1.checked &&
 		!location2.checked &&
 		!location3.checked &&
@@ -113,11 +136,12 @@ submitBtn.addEventListener('click', (e) => {
 		location5Input.setAttribute('style', 'border: 2px solid red')
 		location6Input.setAttribute('style', 'border: 2px solid red')
 		errorLocation.setAttribute('style', 'display: block')
-	} else if (!checkbox.checked) {
+	}
+	// Vérification que la checkbox des conditions d'utilisation soit cochée
+	else if (!checkbox.checked) {
 		checkbox.setAttribute('style', 'border: 2px solid red')
 		errorCheckbox.setAttribute('style', 'display: block')
 	} else {
-		// localStorage.setItem('firstname', first.value)
 		const firstName = first.value
 		const locations = [
 			location1,
@@ -135,6 +159,7 @@ submitBtn.addEventListener('click', (e) => {
 		// Ajout des valeurs souhaitées au formulaire
 		formSend.append('first', firstName)
 		formSend.append('location', locationSelected[0].value)
+		// Récupération des valeurs ajoutées au formulaire
 		const displayFirst = formSend.get('first')
 		const displayCity = formSend.get('location')
 		// Affichage des informations dynamiques
@@ -143,3 +168,4 @@ submitBtn.addEventListener('click', (e) => {
 		formParent.setAttribute('style', 'display: none')
 	}
 })
+

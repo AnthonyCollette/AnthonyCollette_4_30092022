@@ -8,6 +8,20 @@
 	margin: 0;
 	padding: 0;
 }
+@keyframes slide-from-top {
+	0% {
+		display: none;
+		opacity: 0;
+		transform: translateY(-50px);
+	}
+	1% {
+		display: block;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
 /* Landing Page */
 
 body {
@@ -428,6 +442,7 @@ input[data-error]::after {
 	color: #fff;
 	position: relative;
 	text-align: left;
+	max-width: 100%;
 }
 .hero-content::after {
 	content: '';
