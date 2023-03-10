@@ -2,7 +2,7 @@
 const modalbg = document.querySelector('.bground')
 const modalBtn = document.querySelectorAll('.modal-btn')
 const formData = document.querySelectorAll('.formData')
-const burgerBtn = document.getElementById('burger-btn')
+const burgerButton = document.getElementById('burger-btn')
 const closeBtn = document.getElementById('close-btn')
 var topNav = document.getElementById('myTopnav')
 const overlayModal = document.getElementById('overlay-modal')
@@ -17,7 +17,7 @@ function launchModal() {
 }
 
 // Affichage et désaffichage du menu mobile au click
-burgerBtn.addEventListener('click', () => {
+burgerButton.addEventListener('click', () => {
 	if (topNav.className === 'topnav') {
 		topNav.className += ' responsive'
 	} else {
