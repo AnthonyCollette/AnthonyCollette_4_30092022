@@ -29,6 +29,7 @@ const location3Input = document.getElementById('location3-input')
 const location4Input = document.getElementById('location4-input')
 const location5Input = document.getElementById('location5-input')
 const location6Input = document.getElementById('location6-input')
+const checkboxConditions = document.getElementById('checkbox-conditions')
 const modal = document.getElementById('overlay-modal')
 const h2Modal = document.getElementById('h2-modal')
 const formParent = document.getElementById('bground')
@@ -139,7 +140,7 @@ submitBtn.addEventListener('click', (e) => {
 	}
 	// Vérification que la checkbox des conditions d'utilisation soit cochée
 	else if (!checkbox.checked) {
-		checkbox.setAttribute('style', 'border: 2px solid red')
+		checkboxConditions.setAttribute('style', 'border: 2px solid red')
 		errorCheckbox.setAttribute('style', 'display: block')
 	} else {
 		const firstName = first.value
