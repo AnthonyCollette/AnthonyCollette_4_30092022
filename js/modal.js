@@ -26,7 +26,10 @@ burgerButton.addEventListener('click', () => {
 })
 
 // Fermeture du modal
-closeBtn.addEventListener('click', () => (modalbg.style.display = 'none'))
+closeBtn.addEventListener('click', () => {
+	modalbg.style.display = 'none'
+	form.reset()
+})
 
 // Fermeture du modal de confirmation d'inscription
 cross.addEventListener('click', () => {
