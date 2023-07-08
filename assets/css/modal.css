@@ -517,7 +517,7 @@ input[data-error]::after {
 /* MODAL */
 .overlay-modal {
 	inset: 0 0 0 0;
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: #fff;
 	z-index: 999;
 	position: fixed;
 }
@@ -537,6 +537,7 @@ input[data-error]::after {
 	position: relative;
 	height: 90vh;
 	color: #fff;
+	box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.25);
 }
 .modal svg:nth-child(1) {
 	width: 15px;
@@ -569,6 +570,24 @@ footer {
 @media screen and (max-width: 1300px) {
 	.hero-headline {
 		font-size: 4.5rem;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.overlay-modal {
+		background-color: transparent;
+		position: fixed;
+		bottom: 0;
+		height: calc(100vh - 80px);
+		top: auto;
+	}
+	.modal {
+		width: 100%;
+		height: 100%;
+	}
+	.modal h2 {
+		font-size: 36px;
+		max-width: 85%;
 	}
 }
 
@@ -616,9 +635,6 @@ footer {
 	.modal {
 		position: relative;
 		padding: 50px;
-	}
-	.modal h2 {
-		font-size: 20px;
 	}
 	.modal svg:nth-child(2) {
 		width: 68px;
