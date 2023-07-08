@@ -19,8 +19,7 @@ const errorFirst = document.getElementById('error-first')
 const errorLast = document.getElementById('error-last')
 const errorEmail = document.getElementById('error-email')
 const errorLocation = document.getElementById('error-location')
-const errorBirthdate1 = document.getElementById('error-birthdate-1')
-const errorBirthdate2 = document.getElementById('error-birthdate-2')
+const errorBirthdate = document.getElementById('error-birthdate')
 const errorCheckbox = document.getElementById('error-checkbox')
 const errorQuantity = document.getElementById('error-quantity')
 const location1Input = document.getElementById('location1-input')
@@ -34,6 +33,7 @@ const modal = document.getElementById('overlay-modal')
 const h2Modal = document.getElementById('h2-modal')
 const formParent = document.getElementById('bground')
 const burgerBtn = document.getElementById('burger-btn')
+const closeModalBtn = document.getElementById('close-btn')
 
 // let validatedForm = false
 // let validatedFirstName = true
@@ -47,80 +47,27 @@ const burgerBtn = document.getElementById('burger-btn')
 // Enlever le lien du burger button
 burgerBtn.addEventListener('click', (e) => e.preventDefault())
 
-// Lancement de la fonction validate() au submit du formulaire
-form.addEventListener('submit', () => {
-	return validate()
-})
-
-let checkFirstName = (data) => {
-	if (data.length < 2 || data === '' || !/\S/.test(data)) {
-		return false
-	}
-	return true
-}
-let checkLastName = (data) => {
-	if (data.length < 2 || data === '' || !/\S/.test(data)) {
-		return false
-	}
-	return true
-}
-let checkEmail = (data) => {
-	if (data === '' || !regex.test(data)) {
-		return false
-	}
-	return true
-}
-let checkBirthday = (data) => {
-	if (
-		actualYear - new Date(data).getFullYear() < 18 ||
-		isNaN(new Date(data).getFullYear())
-	) {
-		return false
-	}
-	if (actualYear - new Date(birthdate.value).getFullYear() > 122) {
-		return false
-	}
-	return true
-}
-let checkTournaments = (data) => {
-	if (isNaN(data) || data === '' || data < 0) {
-		return false
-	}
-	return true
-}
-let checkLocation = () => {
-	if (!location1.checked &&
-		!location2.checked &&
-		!location3.checked &&
-		!location4.checked &&
-		!location5.checked &&
-		!location6.checked) {
-			return false
-	}
-	return true
-}
-let checkCheckbox = () => {
-	if (!checkbox.checked) {
-		return false
-	}
-	return true
-}
-
-// Lancement de la fonction au clic du bouton d'envoi du formulaire
-submitBtn.addEventListener('click', (e) => {
-	e.preventDefault()
-	// Reset des styles
+let resetStyles = () => {
 	first.removeAttribute('style', 'border')
 	errorFirst.removeAttribute('style', 'display')
+	errorFirst.innerHTML = ''
+
 	last.removeAttribute('style', 'border')
 	errorLast.removeAttribute('style', 'display')
+	errorLast.innerHTML = ''
+
 	email.removeAttribute('style', 'border')
 	errorEmail.removeAttribute('style', 'display')
+	errorEmail.innerHTML = ''
+
 	birthdate.removeAttribute('style', 'border')
-	errorBirthdate1.removeAttribute('style', 'display')
-	errorBirthdate2.removeAttribute('style', 'display')
+	birthdate.removeAttribute('style', 'display')
+	errorBirthdate.innerHTML = ''
+
 	quantity.removeAttribute('style', 'border')
 	errorQuantity.removeAttribute('style', 'display')
+	errorQuantity.innerHTML = ''
+
 	location1Input.removeAttribute('style', 'border')
 	location2Input.removeAttribute('style', 'border')
 	location3Input.removeAttribute('style', 'border')
@@ -128,101 +75,176 @@ submitBtn.addEventListener('click', (e) => {
 	location5Input.removeAttribute('style', 'border')
 	location6Input.removeAttribute('style', 'border')
 	errorLocation.removeAttribute('style', 'display')
-	checkbox.removeAttribute('style', 'border')
+	errorLocation.innerHTML = ''
+
+	checkboxConditions.removeAttribute('style', 'border')
 	errorCheckbox.removeAttribute('style', 'display')
+	errorCheckbox.innerHTML = ''
+}
 
+closeModalBtn.addEventListener('click', () => {
+	resetStyles()
+})
+
+// Lancement de la fonction validate() au submit du formulaire
+form.addEventListener('submit', () => {
+	return validate()
+})
+
+let checkFirstName = (data) => {
+
+	if (data.length < 2 || data === '' || !/\S/.test(data)) {
+		first.setAttribute('style', 'border: 2px solid red')
+		errorFirst.setAttribute('style', 'display: block')
+		errorFirst.innerHTML = `Veuillez entrer 2 caractères ou plus pour le champ du prénom.`
+		return false
+	}
+	return true
+}
+let checkLastName = (data) => {
+
+	if (data.length < 2 || data === '' || !/\S/.test(data)) {
+		last.setAttribute('style', 'border: 2px solid red')
+		errorLast.setAttribute('style', 'display: block')
+		errorLast.innerHTML = `Veuillez entrer 2 caractères ou plus pour le champ du nom.`
+		return false
+	}
+	return true
+}
+let checkEmail = (data) => {
+
+	if (data == '') {
+		email.setAttribute('style', 'border: 2px solid red')
+		errorEmail.setAttribute('style', 'display: block')
+		errorEmail.innerHTML = `Veuillez renseigner votre adresse email.`
+		return false
+	}
+	if (!regex.test(data)) {
+		email.setAttribute('style', 'border: 2px solid red')
+		errorEmail.setAttribute('style', 'display: block')
+		errorEmail.innerHTML = `Veuillez renseigner une adresse email valide.`
+		return false
+	}
+	return true
+}
+let checkBirthday = (data) => {
+	const splitDate = data.split("-")
+	let year = splitDate[0]
+	let month = splitDate[1]
+	let day = splitDate[2]
+	let isValidDate = (year, month, day) => {
+		var d = new Date(year, month, day);
+		if (d.getFullYear() == year && d.getMonth() == month && d.getDate() == day) {
+			return true;
+		}
+		return false;
+	}
+
+	if (!isValidDate(year, month, day)) {
+		console.log('NOPE')
+		birthdate.setAttribute('style', 'border: 2px solid red')
+		errorBirthdate.setAttribute('style', 'display: block')
+		errorBirthdate.innerHTML = `Vous devez entrer une date existante.`
+		return false
+	}
+
+	if (data === '') {
+		birthdate.setAttribute('style', 'border: 2px solid red')
+		errorBirthdate.setAttribute('style', 'display: block')
+		errorBirthdate.innerHTML = `Vous devez entrer votre date de naissance.`
+		return false
+	}
+	if (actualYear - new Date(data).getFullYear() < 18) {
+		birthdate.setAttribute('style', 'border: 2px solid red')
+		errorBirthdate.setAttribute('style', 'display: block')
+		errorBirthdate.innerHTML = `Vous n'avez pas l'âge requis.`
+		return false
+	}
+	if (actualYear - new Date(birthdate.value).getFullYear() > 122) {
+		birthdate.setAttribute('style', 'border: 2px solid red')
+		errorBirthdate.setAttribute('style', 'display: block')
+		errorBirthdate.innerHTML = `Vous devez être la personne la plus âgée sur Terre.`
+		return false
+	}
+	return true
+}
+let checkTournaments = (data) => {
+
+	if (isNaN(data)) {
+		quantity.setAttribute('style', 'border: 2px solid red')
+		errorQuantity.setAttribute('style', 'display: block')
+		errorQuantity.innerHTML = `Merci de renseigner un chiffre.`
+		return false
+	}
+	if (data === '') {
+		quantity.setAttribute('style', 'border: 2px solid red')
+		errorQuantity.setAttribute('style', 'display: block')
+		errorQuantity.innerHTML = `Merci de renseigner le nombre de tournois déjà effectués.`
+		return false
+	}
+	if (data < 0) {
+		quantity.setAttribute('style', 'border: 2px solid red')
+		errorQuantity.setAttribute('style', 'display: block')
+		errorQuantity.innerHTML = `Merci de renseigner un chiffre correct.`
+		return false
+	}
+	return true
+}
+let checkLocation = () => {
+
+	if (!location1.checked &&
+		!location2.checked &&
+		!location3.checked &&
+		!location4.checked &&
+		!location5.checked &&
+		!location6.checked) {
+		location1Input.setAttribute('style', 'border: 2px solid red')
+		location2Input.setAttribute('style', 'border: 2px solid red')
+		location3Input.setAttribute('style', 'border: 2px solid red')
+		location4Input.setAttribute('style', 'border: 2px solid red')
+		location5Input.setAttribute('style', 'border: 2px solid red')
+		location6Input.setAttribute('style', 'border: 2px solid red')
+		errorLocation.setAttribute('style', 'display: block')
+		errorLocation.innerHTML = `Vous devez choisir une option.`
+		return false
+	}
+	return true
+}
+let checkCheckbox = () => {
+
+	if (!checkbox.checked) {
+		checkboxConditions.setAttribute('style', 'border: 2px solid red')
+		errorCheckbox.setAttribute('style', 'display: block')
+		errorCheckbox.innerHTML = `Vous devez vérifier que vous acceptez les termes et conditions.`
+		return false
+	}
+	return true
+}
+
+
+// Lancement de la fonction au clic du bouton d'envoi du formulaire
+submitBtn.addEventListener('click', (e) => {
+	e.preventDefault()
+	resetStyles()
 	let validatedForm = false
-	// let validatedFirstName = true
-	// let validatedLastName = true
-	// let validatedEmail = true
-	// let validatedBirthday = true
-	// let validatedTournaments = true
-	// let validatedLocations = true
-	// let validatedCheckbox = true
 
-
-
-	// Vérification des données
-
-	// Vérification que le prénom fasse au moins 2 caractères
-	// if (first.value.length < 2 || first.value === '') {
-	// 	first.setAttribute('style', 'border: 2px solid red')
-	// 	errorFirst.setAttribute('style', 'display: block')
-	// }
-	// Vérification que le nom fasse au moins 2 caractères
-	// else if (last.value.length < 2 || last.value === '') {
-	// 	last.setAttribute('style', 'border: 2px solid red')
-	// 	errorLast.setAttribute('style', 'display: block')
-	// }
-	// Vérification du format de l'adresse mail
-	// else if (email.value === '' || !regex.test(email.value)) {
-	// 	email.setAttribute('style', 'border: 2px solid red')
-	// 	errorEmail.setAttribute('style', 'display: block')
-	// }
-	// Vérification de l'âge de l'utilisateur
-	// else if (
-	// 	actualYear - new Date(birthdate.value).getFullYear() < 18 ||
-	// 	isNaN(new Date(birthdate.value).getFullYear())
-	// ) {
-	// 	if ((errorBirthdate2.style.display = 'block')) {
-	// 		errorBirthdate2.style.display = 'none'
-	// 	}
-	// 	birthdate.setAttribute('style', 'border: 2px solid red')
-	// 	errorBirthdate1.setAttribute('style', 'display: block')
-	// } else if (actualYear - new Date(birthdate.value).getFullYear() > 122) {
-	// 	if ((errorBirthdate1.style.display = 'block')) {
-	// 		errorBirthdate1.style.display = 'none'
-	// 	}
-	// 	birthdate.setAttribute('style', 'border: 2px solid red')
-	// 	errorBirthdate2.setAttribute('style', 'display: block')
-	// }
-	// Vérification du format de la quantité envoyée
-	// else if (isNaN(quantity.value) || quantity.value === '') {
-	// 	quantity.setAttribute('style', 'border: 2px solid red')
-	// 	errorQuantity.setAttribute('style', 'display: block')
-	// }
-	// Vérification qu'une ville soit sélectionnée
-	// else if (
-	// 	!location1.checked &&
-	// 	!location2.checked &&
-	// 	!location3.checked &&
-	// 	!location4.checked &&
-	// 	!location5.checked &&
-	// 	!location6.checked
-	// ) {
-	// 	location1Input.setAttribute('style', 'border: 2px solid red')
-	// 	location2Input.setAttribute('style', 'border: 2px solid red')
-	// 	location3Input.setAttribute('style', 'border: 2px solid red')
-	// 	location4Input.setAttribute('style', 'border: 2px solid red')
-	// 	location5Input.setAttribute('style', 'border: 2px solid red')
-	// 	location6Input.setAttribute('style', 'border: 2px solid red')
-	// 	errorLocation.setAttribute('style', 'display: block')
-	// }
-	// Vérification que la checkbox des conditions d'utilisation soit cochée
-	// else if (!checkbox.checked) {
-	// 	checkboxConditions.setAttribute('style', 'border: 2px solid red')
-	// 	errorCheckbox.setAttribute('style', 'display: block')
-	// } else {
-
-	// checkFirstName(first.value)
-	// checkLastName(last.value)
-	// checkEmail(email.value)
-	// checkBirthday(birthdate.value)
-	// checkTournaments(quantity.value)
-	// checkLocation()
-	// checkCheckbox()
+	checkFirstName(first.value)
+	checkLastName(last.value)
+	checkEmail(email.value)
+	checkBirthday(birthdate.value)
+	checkTournaments(quantity.value)
+	checkLocation()
+	checkCheckbox()
 
 	if (checkFirstName(first.value) && checkLastName(last.value) && checkEmail(email.value) && checkBirthday(birthdate.value) && checkTournaments(quantity.value) && checkLocation() && checkCheckbox()) {
 		validatedForm = true
 	}
-	console.log(validatedForm)
+
 	if (!validatedForm) {
-		console.log('Formulaire non valide !')
 		validatedForm = false
 	}
 
 	if (validatedForm) {
-		console.log('formulaire envoyé !')
 		const firstName = first.value
 		const locations = [
 			location1,

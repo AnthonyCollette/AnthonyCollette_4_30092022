@@ -1,9 +1,9 @@
 // DOM Elements
+const closeBtn = document.getElementById('close-btn')
 const modalbg = document.querySelector('.bground')
 const modalBtn = document.querySelectorAll('.modal-btn')
 const formData = document.querySelectorAll('.formData')
 const burgerButton = document.getElementById('burger-btn')
-const closeBtn = document.getElementById('close-btn')
 var topNav = document.getElementById('myTopnav')
 const overlayModal = document.getElementById('overlay-modal')
 const cross = document.getElementById('cross')
