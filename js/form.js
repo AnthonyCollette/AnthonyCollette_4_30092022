@@ -35,18 +35,10 @@ const formParent = document.getElementById('bground')
 const burgerBtn = document.getElementById('burger-btn')
 const closeModalBtn = document.getElementById('close-btn')
 
-// let validatedForm = false
-// let validatedFirstName = true
-// let validatedLastName = true
-// let validatedEmail = true
-// let validatedBirthday = true
-// let validatedTournaments = true
-// let validatedLocations = true
-// let validatedCheckbox = true
-
 // Enlever le lien du burger button
 burgerBtn.addEventListener('click', (e) => e.preventDefault())
 
+// Reset des styles
 let resetStyles = () => {
 	first.removeAttribute('style', 'border')
 	errorFirst.removeAttribute('style', 'display')
@@ -82,6 +74,7 @@ let resetStyles = () => {
 	errorCheckbox.innerHTML = ''
 }
 
+// Reset des styles lorsque l'on ferme la modale
 closeModalBtn.addEventListener('click', () => {
 	resetStyles()
 })
@@ -91,6 +84,7 @@ form.addEventListener('submit', () => {
 	return validate()
 })
 
+// Vérification du prénom
 let checkFirstName = (data) => {
 
 	if (data.length < 2 || data === '' || !/\S/.test(data)) {
@@ -101,6 +95,8 @@ let checkFirstName = (data) => {
 	}
 	return true
 }
+
+// Vérification du nom
 let checkLastName = (data) => {
 
 	if (data.length < 2 || data === '' || !/\S/.test(data)) {
@@ -111,6 +107,8 @@ let checkLastName = (data) => {
 	}
 	return true
 }
+
+// Vérification de l'email
 let checkEmail = (data) => {
 
 	if (data == '') {
@@ -127,6 +125,8 @@ let checkEmail = (data) => {
 	}
 	return true
 }
+
+// Vérification de la date de naissance
 let checkBirthday = (data) => {
 	const splitDate = data.split("-")
 	let year = splitDate[0]
@@ -168,6 +168,8 @@ let checkBirthday = (data) => {
 	}
 	return true
 }
+
+// Vérification du nombre de tournois
 let checkTournaments = (data) => {
 
 	if (isNaN(data)) {
@@ -190,6 +192,8 @@ let checkTournaments = (data) => {
 	}
 	return true
 }
+
+// Vérification de la ville sélectionnée
 let checkLocation = () => {
 
 	if (!location1.checked &&
@@ -210,6 +214,8 @@ let checkLocation = () => {
 	}
 	return true
 }
+
+// Vérification des conditions acceptées
 let checkCheckbox = () => {
 
 	if (!checkbox.checked) {
@@ -225,9 +231,14 @@ let checkCheckbox = () => {
 // Lancement de la fonction au clic du bouton d'envoi du formulaire
 submitBtn.addEventListener('click', (e) => {
 	e.preventDefault()
+	
+	// Reset des styles
 	resetStyles()
+
+	// Initialisation de la variable qui détermine si le formulaire est valide
 	let validatedForm = false
 
+	// Vérifications des données reçues du formulaire
 	checkFirstName(first.value)
 	checkLastName(last.value)
 	checkEmail(email.value)
@@ -236,16 +247,12 @@ submitBtn.addEventListener('click', (e) => {
 	checkLocation()
 	checkCheckbox()
 
+	// Si les données sont correctes, le formulaire devient valide
 	if (checkFirstName(first.value) && checkLastName(last.value) && checkEmail(email.value) && checkBirthday(birthdate.value) && checkTournaments(quantity.value) && checkLocation() && checkCheckbox()) {
 		validatedForm = true
 	}
 
-	if (!validatedForm) {
-		validatedForm = false
-	}
-
 	if (validatedForm) {
-		const firstName = first.value
 		const locations = [
 			location1,
 			location2,
@@ -255,21 +262,24 @@ submitBtn.addEventListener('click', (e) => {
 			location6
 		]
 
-		// Création du formulaire à envoyer
-		const formSend = new FormData()
-		// Récupération de la ville sélectionnée
 		const locationSelected = locations.filter((location) => location.checked)
-		// Ajout des valeurs souhaitées au formulaire
-		formSend.append('first', firstName)
-		formSend.append('location', locationSelected[0].value)
-		// Récupération des valeurs ajoutées au formulaire
-		const displayFirst = formSend.get('first')
-		const displayCity = formSend.get('location')
-		// Affichage des informations dynamiques
-		// h2Modal.innerHTML = `Merci ${displayFirst} de vous être enregitré⸱e ! <br /> Nous vous retrouverons bientôt à ${displayCity} !`
+
+		// Création d'un objet "Utilisateur"
+		let userData = {
+			firstName: first.value,
+			lastName: last.value,
+			email: email.value,
+			birthday: birthdate.value,
+			numberOfTournaments: quantity.value,
+			location: locationSelected[0].value
+		}
+
+		// Affichage des données récoltées
+		console.log(userData)
+
 		modal.setAttribute('style', 'display: flex')
 		formParent.setAttribute('style', 'display: none')
-		validatedForm = ''
+		validatedForm = false
 	}
 
 
