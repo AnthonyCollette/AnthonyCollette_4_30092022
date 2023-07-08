@@ -266,7 +266,7 @@ submitBtn.addEventListener('click', (e) => {
 		const displayFirst = formSend.get('first')
 		const displayCity = formSend.get('location')
 		// Affichage des informations dynamiques
-		h2Modal.innerHTML = `Merci ${displayFirst} de vous être enregitré⸱e ! <br /> Nous vous retrouverons bientôt à ${displayCity} !`
+		// h2Modal.innerHTML = `Merci ${displayFirst} de vous être enregitré⸱e ! <br /> Nous vous retrouverons bientôt à ${displayCity} !`
 		modal.setAttribute('style', 'display: flex')
 		formParent.setAttribute('style', 'display: none')
 		validatedForm = ''

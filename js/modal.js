@@ -7,6 +7,7 @@ const burgerButton = document.getElementById('burger-btn')
 var topNav = document.getElementById('myTopnav')
 const overlayModal = document.getElementById('overlay-modal')
 const cross = document.getElementById('cross')
+const closeThanksModalBtn = document.getElementById('close-modal-btn')
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener('click', launchModal))
@@ -33,6 +34,10 @@ closeBtn.addEventListener('click', () => {
 
 // Fermeture du modal de confirmation d'inscription
 cross.addEventListener('click', () => {
+	overlayModal.setAttribute('style', 'display: none')
+	form.reset()
+})
+closeThanksModalBtn.addEventListener('click', () => {
 	overlayModal.setAttribute('style', 'display: none')
 	form.reset()
 })
