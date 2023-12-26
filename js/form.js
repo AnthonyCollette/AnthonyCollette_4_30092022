@@ -79,11 +79,6 @@ closeModalBtn.addEventListener('click', () => {
 	resetStyles()
 })
 
-// Lancement de la fonction validate() au submit du formulaire
-form.addEventListener('submit', () => {
-	return validate()
-})
-
 // Vérification du prénom
 let checkFirstName = (data) => {
 
@@ -229,9 +224,9 @@ let checkCheckbox = () => {
 
 
 // Lancement de la fonction au clic du bouton d'envoi du formulaire
-submitBtn.addEventListener('click', (e) => {
+form.addEventListener('submit', (e) => {
 	e.preventDefault()
-	
+
 	// Reset des styles
 	resetStyles()
 
@@ -280,9 +275,7 @@ submitBtn.addEventListener('click', (e) => {
 		modal.setAttribute('style', 'display: flex')
 		formParent.setAttribute('style', 'display: none')
 		validatedForm = false
+		}
 	}
-
-
-}
 )
 

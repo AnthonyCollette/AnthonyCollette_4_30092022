@@ -39,14 +39,14 @@
             Vous aimez jouer ? Notre prochain évènement gaming est ouvert
             aux réservations... Places limitées !
           </p>
-          <button class="btn-signup modal-btn">
+          <button class="btn-signup modal-btn" type="button">
             je m'inscris
           </button>
         </div>
         <div class="hero-img">
           <img src="./assets/img/bg_img.jpg" alt="img" />
         </div>
-        <button class="btn-signup modal-btn">
+        <button class="btn-signup modal-btn" type="button">
           je m'inscris
         </button>
       </div>
@@ -60,6 +60,7 @@
               action="index.html"
               method="get"
               id="form"
+              novalidate
             >
               <div
                 class="formData">
@@ -193,6 +194,7 @@
                   class="checkbox-input"
                   type="checkbox"
                   id="checkbox1"
+                  name="checkbox1"
                   checked
                   required
                 />
@@ -201,7 +203,7 @@
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
                 <span class="error" id="error-checkbox"></span>
-                <input class="checkbox-input" type="checkbox" id="checkbox2" />
+                <input class="checkbox-input" name="checkbox2" type="checkbox" id="checkbox2" />
                 <label class="checkbox2-label" for="checkbox2">
                   <span class="checkbox-icon"></span>
                   Je souhaite être prévenu des prochains évènements.
@@ -224,7 +226,7 @@
             <path d="M1 1L17.8309 17.8309M17.8309 1L1 17.8309" stroke="white" stroke-width="2"/>
           </svg>
           <h2>Merci pour votre inscription</h2>
-          <button class="button btn-signup" id="close-modal-btn">Fermer</button>
+          <button class="button btn-signup" id="close-modal-btn" type="button">Fermer</button>
         </div>
       </div>
     </main>
